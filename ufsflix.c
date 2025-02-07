@@ -11,6 +11,7 @@ typedef struct filme
     int anoLancamento;
     char sinopse[120];
     int avaliacao;
+    int avaliacaoPessoal;
 } Filme;
 
 // Declarando no c/ dado FILME
