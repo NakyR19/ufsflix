@@ -120,38 +120,89 @@ void inicializarListaGenero(tipoListaGenero *lista)
 
 // precisa mesmo comentar?
 // Ordem alfabética de preferencia, caso não consiga pode ir normalmente, SEJA FELIZ
-int inserirGeneroEmListaVazia(tipoListaGenero *lista, Genero dado)
-{
-    return 0;
+void inserirGeneroEmListaVazia(ListaGeneros *lista, char *genero) {
+    No *novo = (No *)malloc(sizeof(No));
+    strcpy(novo->genero, genero);
+    novo->anterior = lista->cabeca;
+    novo->proximo = lista->cabeca;
+    lista->cabeca->proximo = novo;
+    lista->cabeca->anterior = novo;
 }
-
 // Ordem alfabética de preferencia, caso não consiga pode ir normalmente, SEJA FELIZ
-int inserirGenero(tipoListaGenero *lista, Genero valor)
-{
-    // RECUSAR DUPLICATA, OU SEJA SE JA HOUVER GENERO COM O MESMO NOME NÃO INSERIR
-    // LEMBRAR DE TRATAR STRING E OUTROS "ERROS" COMUNS
-    return 0;
+
+void inserirGenero(ListaGeneros *lista, char *genero) {
+    // Verifica se o gênero já existe na lista
+    No *atual = lista->cabeca->proximo;
+    while (atual != lista->cabeca) {
+        if (strcmp(atual->genero, genero) == 0) {
+            printf("Gênero '%s' já existe na lista.\n", genero);
+            return;
+        }
+        atual = atual->proximo;
+    }
+
+    // Cria um novo nó
+    No *novo = (No *)malloc(sizeof(No));
+    strcpy(novo->genero, genero);
+
+    // Insere em ordem alfabética
+    atual = lista->cabeca->proximo;
+    while (atual != lista->cabeca && strcmp(atual->genero, genero) < 0) {
+        atual = atual->proximo;
+    }
+
+    // Ajusta os ponteiros
+    novo->proximo = atual;
+    novo->anterior = atual->anterior;
+    atual->anterior->proximo = novo;
+    atual->anterior = novo;
 }
 
-// realiza a busca pelo nome do gênero e retorna o mesmo
-tipoNoGenero *buscarGenero(tipoListaGenero *lista, char *nomeGenero)
-{
-    // TIPO DE RETORNO É ELE MESMO ATENÇÃO, FUNÇÃO IMPORTANTE PARA INSERÇÃO DE UM FILME EM MAIS DE UM GENERO
-    return NULL;
+No *buscarGenero(ListaGeneros *lista, char *genero) {
+    No *atual = lista->cabeca->proximo;
+    while (atual != lista->cabeca) {
+        if (strcmp(atual->genero, genero) == 0) {
+            return atual; // Retorna o nó encontrado
+        }
+        atual = atual->proximo;
+    }
+    return NULL; // Gênero não encontrado
 }
 
 // Remove um gênero da lista (libera também a lista de filmes associada)
 // retorna 1 se foi removido com sucesso, 0 se não existe, uau q novidade
-int removerGenero()
-{
-    return 0;
-}
+int removerGenero(ListaGeneros *lista, char *genero) {
+    // Busca o gênero na lista
+    No *atual = buscarGenero(lista, genero);
 
-// precisa?
-void exibirGeneros(tipoListaGenero *lista)
-{
-}
+    if (atual == NULL) {
+        printf("Gênero '%s' não encontrado.\n", genero);
+        return 0; // Gênero não encontrado
+    }
 
+    // Ajusta os ponteiros dos nós adjacentes
+    atual->anterior->proximo = atual->proximo;
+    atual->proximo->anterior = atual->anterior;
+
+    // Libera a memória do nó removido
+    free(atual);
+
+    printf("Gênero '%s' removido com sucesso.\n", genero);
+    return 1; // Gênero removido
+}
+void exibirGeneros(ListaGeneros *lista) {
+    No *atual = lista->cabeca->proximo;
+    if (atual == lista->cabeca) {
+        printf("Nenhum gênero cadastrado.\n");
+        return;
+    }
+
+    printf("Gêneros cadastrados:\n");
+    while (atual != lista->cabeca) {
+        printf("- %s\n", atual->genero);
+        atual = atual->proximo;
+    }
+}
 // -------------------------------------------
 // -----------Funções para o filme-----------
 // -------------------------------------------
