@@ -118,89 +118,116 @@ void inicializarListaGenero(tipoListaGenero *lista)
     lista->quant = 0;
 }
 
-// precisa mesmo comentar?
-// Ordem alfabética de preferencia, caso não consiga pode ir normalmente, SEJA FELIZ
-void inserirGeneroEmListaVazia(ListaGeneros *lista, char *genero) {
-    No *novo = (No *)malloc(sizeof(No));
-    strcpy(novo->genero, genero);
-    novo->anterior = lista->cabeca;
-    novo->proximo = lista->cabeca;
-    lista->cabeca->proximo = novo;
-    lista->cabeca->anterior = novo;
-}
-// Ordem alfabética de preferencia, caso não consiga pode ir normalmente, SEJA FELIZ
+// Insere um novo gênero na lista (ordem alfabética baseada em nome)
+int inserirGenero(tipoListaGenero *lista, Genero dado) {
+    tipoNoGenero *novoNo = (tipoNoGenero*) malloc(sizeof(tipoNoGenero));
+    if (!novoNo) return 0;
+    novoNo->dado = dado;
+    novoNo->proxNoFilme = NULL;
+    novoNo->proxNo = NULL;
+    novoNo->antNo = NULL;
 
-void inserirGenero(ListaGeneros *lista, char *genero) {
-    // Verifica se o gênero já existe na lista
-    No *atual = lista->cabeca->proximo;
-    while (atual != lista->cabeca) {
-        if (strcmp(atual->genero, genero) == 0) {
-            printf("Gênero '%s' já existe na lista.\n", genero);
-            return;
+    // Se a lista estiver vazia
+    if (lista->quant == 0) {
+        lista->inicio = novoNo;
+        lista->fim = novoNo;
+    } else {
+        tipoNoGenero *atual = lista->inicio;
+        tipoNoGenero *anterior = NULL;
+        while (atual != NULL && strcmp(atual->dado.nome, novoNo->dado.nome) < 0) {
+            anterior = atual;
+            atual = atual->proxNo;
         }
-        atual = atual->proximo;
+        if (anterior == NULL) { // Inserir no início
+            novoNo->proxNo = lista->inicio;
+            lista->inicio->antNo = novoNo;
+            lista->inicio = novoNo;
+        } else {
+            novoNo->proxNo = atual;
+            novoNo->antNo = anterior;
+            anterior->proxNo = novoNo;
+            if (atual != NULL) {
+                atual->antNo = novoNo;
+            } else {
+                lista->fim = novoNo;
+            }
+        }
     }
-
-    // Cria um novo nó
-    No *novo = (No *)malloc(sizeof(No));
-    strcpy(novo->genero, genero);
-
-    // Insere em ordem alfabética
-    atual = lista->cabeca->proximo;
-    while (atual != lista->cabeca && strcmp(atual->genero, genero) < 0) {
-        atual = atual->proximo;
-    }
-
-    // Ajusta os ponteiros
-    novo->proximo = atual;
-    novo->anterior = atual->anterior;
-    atual->anterior->proximo = novo;
-    atual->anterior = novo;
+    lista->quant++;
+    return 1;
 }
 
-No *buscarGenero(ListaGeneros *lista, char *genero) {
-    No *atual = lista->cabeca->proximo;
-    while (atual != lista->cabeca) {
-        if (strcmp(atual->genero, genero) == 0) {
-            return atual; // Retorna o nó encontrado
-        }
-        atual = atual->proximo;
+// Busca um gênero pelo nome (comparação considerando strings padronizadas)
+tipoNoGenero* buscarGenero(tipoListaGenero *lista, char *nomeGenero) {
+    tipoNoGenero *atual = lista->inicio;
+    // Para busca, convertemos a string para maiúsculas
+    char nomeBusca[MAX_NOME];
+    strcpy(nomeBusca, nomeGenero);
+    padronizarString(nomeBusca);
+    while (atual != NULL) {
+        char nomeGen[MAX_NOME];
+        strcpy(nomeGen, atual->dado.nome);
+        padronizarString(nomeGen);
+        if (strcmp(nomeGen, nomeBusca) == 0)
+            return atual;
+        atual = atual->proxNo;
     }
-    return NULL; // Gênero não encontrado
+    return NULL;
 }
 
 // Remove um gênero da lista (libera também a lista de filmes associada)
-// retorna 1 se foi removido com sucesso, 0 se não existe, uau q novidade
-int removerGenero(ListaGeneros *lista, char *genero) {
-    // Busca o gênero na lista
-    No *atual = buscarGenero(lista, genero);
-
-    if (atual == NULL) {
-        printf("Gênero '%s' não encontrado.\n", genero);
-        return 0; // Gênero não encontrado
+int removerGenero(tipoListaGenero *lista, char *nomeGenero) {
+    tipoNoGenero *atual = lista->inicio;
+    // procura o gênero na lista
+    while (atual != NULL) {
+        if (strcmp(atual->dado.nome, nomeGenero) == 0) {
+            if (atual->antNo == NULL) {
+                lista->inicio = atual->proxNo;
+                if (lista->inicio != NULL) {
+                    lista->inicio->antNo = NULL;
+                }
+            } else {
+                atual->antNo->proxNo = atual->proxNo;
+                if (atual->proxNo != NULL) {
+                    atual->proxNo->antNo = atual->antNo;
+                }
+            }
+            if (atual == lista->fim) {
+                lista->fim = atual->antNo;
+            }
+            // serve p liberar a lista de filmes
+            if (atual->proxNoFilme) {
+                tipoNoFilme *filmeAtual = atual->proxNoFilme->proxNo;
+                tipoNoFilme *temp;
+                int count = atual->dado.qntdFilmes;
+                while (count--)  { // vai diminuindo a qnt de de filmes liberando os nós da lista de filmes
+                    temp = filmeAtual;
+                    filmeAtual = filmeAtual->proxNo;
+                    free(temp);
+                }
+            }
+            free(atual);
+            lista->quant--;
+            return 1;
+        }
+        atual = atual->proxNo;
     }
-
-    // Ajusta os ponteiros dos nós adjacentes
-    atual->anterior->proximo = atual->proximo;
-    atual->proximo->anterior = atual->anterior;
-
-    // Libera a memória do nó removido
-    free(atual);
-
-    printf("Gênero '%s' removido com sucesso.\n", genero);
-    return 1; // Gênero removido
+    return 0;
 }
-void exibirGeneros(ListaGeneros *lista) {
-    No *atual = lista->cabeca->proximo;
-    if (atual == lista->cabeca) {
-        printf("Nenhum gênero cadastrado.\n");
+
+// Exibe todos os gêneros cadastrados
+void exibirGeneros(tipoListaGenero *lista) {
+    tipoNoGenero *atual = lista->inicio;
+    if (atual == NULL) {
+        printf("Nenhum genero cadastrado.\n");
         return;
     }
-
-    printf("Gêneros cadastrados:\n");
-    while (atual != lista->cabeca) {
-        printf("- %s\n", atual->genero);
-        atual = atual->proximo;
+    while (atual != NULL) {
+        printf("Genero: %s\n", atual->dado.nome);
+        printf("Descricao: %s\n", atual->dado.descricao);
+        printf("Quantidade de filmes: %d\n", atual->dado.qntdFilmes);
+        printf("---------------------------\n");
+        atual = atual->proxNo;
     }
 }
 // -------------------------------------------
