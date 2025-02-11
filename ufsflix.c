@@ -107,6 +107,16 @@ void inicializarListaGenero(tipoListaGenero *lista) {
 // insere um novo gênero na lista (ordem alfabética)
 // ! INSERIR TESTE PARA CHECAR SE AQUELE GENERO JÁ EXISTE NA LISTA (NÃO PODE TER DOIS GENEROS COM O MESMO NOME) USAR BUSCA
 int inserirGenero(tipoListaGenero *lista, Genero dado) {
+       // Verifica se o gênero já existe na lista
+       //conferir rafael*
+    if (buscarGenero(lista, dado.nome) != NULL) 
+    {
+        printf("Erro: O genero '%s' ja existe na lista.\n", dado.nome);
+        return 0; // Retorna 0 para indicar que a inserção não foi realizada
+    }
+
+
+
     tipoNoGenero *novoNo = (tipoNoGenero*) malloc(sizeof(tipoNoGenero));
     if (!novoNo) return 0;
     novoNo->dado = dado;
@@ -204,6 +214,7 @@ int removerGenero(tipoListaGenero *lista, char *nomeGenero) {
 
 
 // precisa comentar?
+//exibe os de gÊneros da lista
 void exibirGeneros(tipoListaGenero *lista) {
     tipoNoGenero *atual = lista->inicio;
     if (atual == NULL) {
@@ -224,6 +235,7 @@ void exibirGeneros(tipoListaGenero *lista) {
 // -------------------------------------------
 
 // precisa mesmo comentar?
+//PRECISA! inicializa a lista de filmes.
 void inicializarListaFilme(tipoListaFilme *lista) {
     lista->fim = NULL;
     lista->quant = 0;
@@ -232,6 +244,11 @@ void inicializarListaFilme(tipoListaFilme *lista) {
 // insere em ordem alfabetica
 // ! INSERIR TESTE PARA CHECAR SE AQUELE FILME JÁ EXISTE NA LISTA (NÃO PODE TER DOIS FILMES COM O MESMO NOME NA MESMA LISTA DO GENERO) USAR BUSCA
 int inserirFilmeNaLista(tipoNoGenero *noGen, Filme filme) {
+//conferir* rafael
+    if (buscarFilmeNaLista(noGen, filme.nome) != NULL) {
+        printf("Erro: O filme '%s' ja existe na lista do genero '%s'.\n", filme.nome, noGen->dado.nome);
+        return 0; // Retorna 0 para indicar que a inserção não foi realizada
+    }
     tipoNoFilme *novoNo = (tipoNoFilme*) malloc(sizeof(tipoNoFilme));
     if (!novoNo) return 0;
     novoNo->dado = filme;
