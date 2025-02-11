@@ -608,9 +608,8 @@ int main() {
                 printf("Digite a avaliacao (0 a 5): ");
                 scanf("%d", &novoFilme.avaliacao);
                 limparBufferEntrada();
-                
                 printf("Quantos generos este filme pertence? ");
-                // ADD VERIFICADOR SE O NUM DIGITADO É UM INTEIRO
+                // ! ADD VERIFICADOR SE O NUM DIGITADO É UM INTEIRO
                 scanf("%d", &numGeneros);
                 limparBufferEntrada();
                 
