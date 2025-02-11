@@ -1,0 +1,8 @@
+Acao;Porradaria franca entre seres, inanimados ou nao.
+Drama;Genero literario e teatral que caracteriza a acao teatral, no qual a narrativa, compreendendo as intervencoes explicitas de um narrador sao suprimidas.
+Comedia;Filmes para dar boas risadas.
+Terror;Filmes para arrepios.
+Romance;Filmes de amor e relacionamentos.
+Ficcao;Filmes de ciencia e ficcao.
+Suspense;Filmes de mistério e intriga.
+Animacao;Filmes animados para todas as idades.
