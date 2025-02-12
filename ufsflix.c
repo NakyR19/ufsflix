@@ -104,6 +104,24 @@ void inicializarListaGenero(tipoListaGenero *lista) {
     lista->quant = 0;
 }
 
+// busca um gênero pelo nome (COMPARANDO C/ AS STRING PADRONIZADAS)
+tipoNoGenero* buscarGenero(tipoListaGenero *lista, char *nomeGenero) {
+    tipoNoGenero *atual = lista->inicio;
+    // p/ buscar, converte a string para maiúscula
+    char nomeBusca[MAX_NOME];
+    strcpy(nomeBusca, nomeGenero);
+    padronizarString(nomeBusca);
+    while (atual != NULL) {
+        char nomeGen[MAX_NOME];
+        strcpy(nomeGen, atual->dado.nome);
+        padronizarString(nomeGen);
+        if (strcmp(nomeGen, nomeBusca) == 0)
+            return atual;
+        atual = atual->proxNo;
+    }
+    return NULL;
+}
+
 // insere um novo gênero na lista (ordem alfabética)
 // ! INSERIR TESTE PARA CHECAR SE AQUELE GENERO JÁ EXISTE NA LISTA (NÃO PODE TER DOIS GENEROS COM O MESMO NOME) USAR BUSCA
 int inserirGenero(tipoListaGenero *lista, Genero dado) {
@@ -154,23 +172,7 @@ int inserirGenero(tipoListaGenero *lista, Genero dado) {
     return 1;
 }
 
-// busca um gênero pelo nome (COMPARANDO C/ AS STRING PADRONIZADAS)
-tipoNoGenero* buscarGenero(tipoListaGenero *lista, char *nomeGenero) {
-    tipoNoGenero *atual = lista->inicio;
-    // p/ buscar, converte a string para maiúscula
-    char nomeBusca[MAX_NOME];
-    strcpy(nomeBusca, nomeGenero);
-    padronizarString(nomeBusca);
-    while (atual != NULL) {
-        char nomeGen[MAX_NOME];
-        strcpy(nomeGen, atual->dado.nome);
-        padronizarString(nomeGen);
-        if (strcmp(nomeGen, nomeBusca) == 0)
-            return atual;
-        atual = atual->proxNo;
-    }
-    return NULL;
-}
+
 
 // remove um gen da lista (libera também a lista de filmes)
 int removerGenero(tipoListaGenero *lista, char *nomeGenero) {
@@ -240,7 +242,19 @@ void inicializarListaFilme(tipoListaFilme *lista) {
     lista->fim = NULL;
     lista->quant = 0;
 }
-
+// busscaa pelo nome
+tipoNoFilme* buscarFilmeNaLista(tipoNoGenero *noGen, char *nomeFilme) {
+    if (noGen->proxNoFilme == NULL) return NULL;
+    tipoNoFilme *atual = noGen->proxNoFilme->proxNo;
+    int count = noGen->dado.qntdFilmes;
+    do {
+        if (strcmp(atual->dado.nome, nomeFilme) == 0)
+            return atual;
+        atual = atual->proxNo;
+        count--;
+    } while(count > 0);
+    return NULL;
+}
 // insere em ordem alfabetica
 // ! INSERIR TESTE PARA CHECAR SE AQUELE FILME JÁ EXISTE NA LISTA (NÃO PODE TER DOIS FILMES COM O MESMO NOME NA MESMA LISTA DO GENERO) USAR BUSCA
 int inserirFilmeNaLista(tipoNoGenero *noGen, Filme filme) {
@@ -283,6 +297,9 @@ int inserirFilmeNaLista(tipoNoGenero *noGen, Filme filme) {
     return 1;
 }
 
+
+
+
 // precisa? remove pelo nome
 int removerFilmeDaLista(tipoNoGenero *noGen, char *nomeFilme) {
     if (noGen->proxNoFilme == NULL) return 0; 
@@ -314,19 +331,6 @@ int removerFilmeDaLista(tipoNoGenero *noGen, char *nomeFilme) {
     return 1;
 }
 
-// busscaa pelo nome
-tipoNoFilme* buscarFilmeNaLista(tipoNoGenero *noGen, char *nomeFilme) {
-    if (noGen->proxNoFilme == NULL) return NULL;
-    tipoNoFilme *atual = noGen->proxNoFilme->proxNo;
-    int count = noGen->dado.qntdFilmes;
-    do {
-        if (strcmp(atual->dado.nome, nomeFilme) == 0)
-            return atual;
-        atual = atual->proxNo;
-        count--;
-    } while(count > 0);
-    return NULL;
-}
 
 // ...
 void exibirFilmesGenero(tipoNoGenero *noGen) {
