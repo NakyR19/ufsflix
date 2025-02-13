@@ -536,7 +536,7 @@ int main() {
         printf("4 - Exibir Filmes por Genero\n");
         printf("5 - Procurar Genero\n");
         printf("6 - Inserir Filme (Cadastrar Filme)\n");
-        printf("7 - Remover Filme\n");
+        printf("7 - Remover Filme de um Genero\n");
         printf("8 - Exibir Filme Especifico (por genero)\n");
         printf("9 - Procurar Filme Global (por nome)\n");
         printf("10 - Adicionar Filme Assistido\n");
