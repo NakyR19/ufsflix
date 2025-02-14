@@ -97,7 +97,6 @@ void removeQuebraLinha(char *str) {
 // -----------Funções para o Gênero-----------
 // -------------------------------------------
 
-// precisa comentar?
 void inicializarListaGenero(tipoListaGenero *lista) {
     lista->inicio = NULL;
     lista->fim = NULL;
@@ -123,10 +122,8 @@ tipoNoGenero* buscarGenero(tipoListaGenero *lista, char *nomeGenero) {
 }
 
 // insere um novo gênero na lista (ordem alfabética)
-// ! INSERIR TESTE PARA CHECAR SE AQUELE GENERO JÁ EXISTE NA LISTA (NÃO PODE TER DOIS GENEROS COM O MESMO NOME) USAR BUSCA
 int inserirGenero(tipoListaGenero *lista, Genero dado) {
        // Verifica se o gênero já existe na lista
-       //conferir rafael*
     if (buscarGenero(lista, dado.nome) != NULL) 
     {
         printf("Erro: O genero '%s' ja existe na lista.\n", dado.nome);
@@ -214,9 +211,7 @@ int removerGenero(tipoListaGenero *lista, char *nomeGenero) {
     return 0;
 }
 
-
-// precisa comentar?
-//exibe os de gÊneros da lista
+//exibe os de gêneros da lista
 void exibirGeneros(tipoListaGenero *lista) {
     tipoNoGenero *atual = lista->inicio;
     if (atual == NULL) {
@@ -236,13 +231,12 @@ void exibirGeneros(tipoListaGenero *lista) {
 // -----------Funções para o filme-----------
 // -------------------------------------------
 
-// precisa mesmo comentar?
-//PRECISA! inicializa a lista de filmes.
+//  inicializa a lista de filmes.
 void inicializarListaFilme(tipoListaFilme *lista) {
     lista->fim = NULL;
     lista->quant = 0;
 }
-// busscaa pelo nome
+// busca pelo nome
 tipoNoFilme* buscarFilmeNaLista(tipoNoGenero *noGen, char *nomeFilme) {
     if (noGen->proxNoFilme == NULL) return NULL;
     tipoNoFilme *atual = noGen->proxNoFilme->proxNo;
@@ -298,9 +292,6 @@ int inserirFilmeNaLista(tipoNoGenero *noGen, Filme filme) {
 }
 
 
-
-
-// precisa? remove pelo nome
 int removerFilmeDaLista(tipoNoGenero *noGen, char *nomeFilme) {
     if (noGen->proxNoFilme == NULL) return 0; 
     tipoNoFilme *atual = noGen->proxNoFilme->proxNo;
@@ -356,13 +347,11 @@ void exibirFilmesGenero(tipoNoGenero *noGen) {
 // -----------Funções p/ filme assistido---------------
 // ----------------------------------------------------
 
-// precisa mesmo comentar?
 void inicializarListaAssistidos(tipoListaAssistidos *lista) {
     lista->inicio = NULL;
     lista->quant = 0;
 }
 
-// precisa mesmo comentar?
 int inserirAssistido(tipoListaAssistidos *lista, FilmeAssistido filmeAssistido) {
     tipoNoAssistido *novo = (tipoNoAssistido*) malloc(sizeof(tipoNoAssistido));
     if (!novo) return 0;
@@ -373,7 +362,6 @@ int inserirAssistido(tipoListaAssistidos *lista, FilmeAssistido filmeAssistido) 
     return 1;
 }
 
-// já desisti até de colocar o rpecisa msm comentar, na vdd quase
 int removerAssistido(tipoListaAssistidos *lista, char *nomeFilme) {
     tipoNoAssistido *atual = lista->inicio;
     tipoNoAssistido *anterior = NULL;
@@ -446,7 +434,6 @@ Filme* buscarFilmeGlobal(tipoListaGenero *lista, char *nomeFilme) {
     return NULL;
 }
 
-// chato
 void carregarGenerosDoArquivo(tipoListaGenero *lg) {
     FILE *arq = fopen("c:/Users/04rfl/atividadeED/priv_atvd/generos.txt", "r");
     if (!arq) {
@@ -471,7 +458,6 @@ void carregarGenerosDoArquivo(tipoListaGenero *lg) {
     fclose(arq);
 }
 
-// chato
 void carregarFilmesDoArquivo(tipoListaGenero *lg) {
     FILE *arq = fopen("c:/Users/04rfl/atividadeED/priv_atvd/filmes.txt", "r");
     if (!arq) {
@@ -506,7 +492,7 @@ void carregarFilmesDoArquivo(tipoListaGenero *lg) {
 }
 
 // ----------------------------------------------------
-// ------------------------mainha----------------------
+// ------------------------main----------------------
 // ----------------------------------------------------
 
 int main() {
@@ -519,7 +505,6 @@ int main() {
     tipoListaAssistidos listaAssistidos;
     inicializarListaAssistidos(&listaAssistidos);
 
-    // É MELHOR COMEÇAR INICIALIZANDO ANTES, OU SE A PESSOA QUISER PODE CARREGAR OS DADOS VAZIO E ESCOLHER SE QUER UMA BASE DE DADOS?
     carregarGenerosDoArquivo(&listaGeneros);
     carregarFilmesDoArquivo(&listaGeneros);
 
