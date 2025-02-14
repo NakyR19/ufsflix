@@ -97,23 +97,40 @@ void removeQuebraLinha(char *str) {
 // -----------Funções para o Gênero-----------
 // -------------------------------------------
 
-// precisa comentar?
 void inicializarListaGenero(tipoListaGenero *lista) {
     lista->inicio = NULL;
     lista->fim = NULL;
     lista->quant = 0;
 }
 
+// busca um gênero pelo nome (COMPARANDO C/ AS STRING PADRONIZADAS)
+tipoNoGenero* buscarGenero(tipoListaGenero *lista, char *nomeGenero) {
+    tipoNoGenero *atual = lista->inicio;
+    // p/ buscar, converte a string para maiúscula
+    char nomeBusca[MAX_NOME];
+    strcpy(nomeBusca, nomeGenero);
+    padronizarString(nomeBusca);
+    while (atual != NULL) {
+        char nomeGen[MAX_NOME];
+        strcpy(nomeGen, atual->dado.nome);
+        padronizarString(nomeGen);
+        if (strcmp(nomeGen, nomeBusca) == 0)
+            return atual;
+        atual = atual->proxNo;
+    }
+    return NULL;
+}
+
 // insere um novo gênero na lista (ordem alfabética)
-// ! INSERIR TESTE PARA CHECAR SE AQUELE GENERO JÁ EXISTE NA LISTA (NÃO PODE TER DOIS GENEROS COM O MESMO NOME) USAR BUSCA
 int inserirGenero(tipoListaGenero *lista, Genero dado) {
        // Verifica se o gênero já existe na lista
-       //conferir rafael*
     if (buscarGenero(lista, dado.nome) != NULL) 
     {
         printf("Erro: O genero '%s' ja existe na lista.\n", dado.nome);
         return 0; // Retorna 0 para indicar que a inserção não foi realizada
     }
+
+
 
     tipoNoGenero *novoNo = (tipoNoGenero*) malloc(sizeof(tipoNoGenero));
     if (!novoNo) return 0;
@@ -152,23 +169,7 @@ int inserirGenero(tipoListaGenero *lista, Genero dado) {
     return 1;
 }
 
-// busca um gênero pelo nome (COMPARANDO C/ AS STRING PADRONIZADAS)
-tipoNoGenero* buscarGenero(tipoListaGenero *lista, char *nomeGenero) {
-    tipoNoGenero *atual = lista->inicio;
-    // p/ buscar, converte a string para maiúscula
-    char nomeBusca[MAX_NOME];
-    strcpy(nomeBusca, nomeGenero);
-    padronizarString(nomeBusca);
-    while (atual != NULL) {
-        char nomeGen[MAX_NOME];
-        strcpy(nomeGen, atual->dado.nome);
-        padronizarString(nomeGen);
-        if (strcmp(nomeGen, nomeBusca) == 0)
-            return atual;
-        atual = atual->proxNo;
-    }
-    return NULL;
-}
+
 
 // remove um gen da lista (libera também a lista de filmes)
 int removerGenero(tipoListaGenero *lista, char *nomeGenero) {
@@ -210,8 +211,7 @@ int removerGenero(tipoListaGenero *lista, char *nomeGenero) {
     return 0;
 }
 
-
-// precisa comentar?
+//exibe os de gêneros da lista
 void exibirGeneros(tipoListaGenero *lista) {
     tipoNoGenero *atual = lista->inicio;
     if (atual == NULL) {
@@ -231,12 +231,24 @@ void exibirGeneros(tipoListaGenero *lista) {
 // -----------Funções para o filme-----------
 // -------------------------------------------
 
-// precisa mesmo comentar?
+//  inicializa a lista de filmes.
 void inicializarListaFilme(tipoListaFilme *lista) {
     lista->fim = NULL;
     lista->quant = 0;
 }
-
+// busca pelo nome
+tipoNoFilme* buscarFilmeNaLista(tipoNoGenero *noGen, char *nomeFilme) {
+    if (noGen->proxNoFilme == NULL) return NULL;
+    tipoNoFilme *atual = noGen->proxNoFilme->proxNo;
+    int count = noGen->dado.qntdFilmes;
+    do {
+        if (strcmp(atual->dado.nome, nomeFilme) == 0)
+            return atual;
+        atual = atual->proxNo;
+        count--;
+    } while(count > 0);
+    return NULL;
+}
 // insere em ordem alfabetica
 // ! INSERIR TESTE PARA CHECAR SE AQUELE FILME JÁ EXISTE NA LISTA (NÃO PODE TER DOIS FILMES COM O MESMO NOME NA MESMA LISTA DO GENERO) USAR BUSCA
 int inserirFilmeNaLista(tipoNoGenero *noGen, Filme filme) {
@@ -279,7 +291,7 @@ int inserirFilmeNaLista(tipoNoGenero *noGen, Filme filme) {
     return 1;
 }
 
-// precisa? remove pelo nome
+
 int removerFilmeDaLista(tipoNoGenero *noGen, char *nomeFilme) {
     if (noGen->proxNoFilme == NULL) return 0; 
     tipoNoFilme *atual = noGen->proxNoFilme->proxNo;
@@ -310,19 +322,6 @@ int removerFilmeDaLista(tipoNoGenero *noGen, char *nomeFilme) {
     return 1;
 }
 
-// busscaa pelo nome
-tipoNoFilme* buscarFilmeNaLista(tipoNoGenero *noGen, char *nomeFilme) {
-    if (noGen->proxNoFilme == NULL) return NULL;
-    tipoNoFilme *atual = noGen->proxNoFilme->proxNo;
-    int count = noGen->dado.qntdFilmes;
-    do {
-        if (strcmp(atual->dado.nome, nomeFilme) == 0)
-            return atual;
-        atual = atual->proxNo;
-        count--;
-    } while(count > 0);
-    return NULL;
-}
 
 // ...
 void exibirFilmesGenero(tipoNoGenero *noGen) {
@@ -348,13 +347,11 @@ void exibirFilmesGenero(tipoNoGenero *noGen) {
 // -----------Funções p/ filme assistido---------------
 // ----------------------------------------------------
 
-// precisa mesmo comentar?
 void inicializarListaAssistidos(tipoListaAssistidos *lista) {
     lista->inicio = NULL;
     lista->quant = 0;
 }
 
-// precisa mesmo comentar?
 int inserirAssistido(tipoListaAssistidos *lista, FilmeAssistido filmeAssistido) {
     tipoNoAssistido *novo = (tipoNoAssistido*) malloc(sizeof(tipoNoAssistido));
     if (!novo) return 0;
@@ -365,7 +362,6 @@ int inserirAssistido(tipoListaAssistidos *lista, FilmeAssistido filmeAssistido) 
     return 1;
 }
 
-// já desisti até de colocar o rpecisa msm comentar, na vdd quase
 int removerAssistido(tipoListaAssistidos *lista, char *nomeFilme) {
     tipoNoAssistido *atual = lista->inicio;
     tipoNoAssistido *anterior = NULL;
@@ -438,9 +434,8 @@ Filme* buscarFilmeGlobal(tipoListaGenero *lista, char *nomeFilme) {
     return NULL;
 }
 
-// chato
 void carregarGenerosDoArquivo(tipoListaGenero *lg) {
-    FILE *arq = fopen("c:/Users/04rfl/atividadeED/priv_atvd/generos.txt", "r");
+    FILE *arq = fopen("generos.txt", "r");
     if (!arq) {
         printf("Erro ao abrir o arquivo generos.txt\n");
         return;
@@ -463,9 +458,8 @@ void carregarGenerosDoArquivo(tipoListaGenero *lg) {
     fclose(arq);
 }
 
-// chato
 void carregarFilmesDoArquivo(tipoListaGenero *lg) {
-    FILE *arq = fopen("c:/Users/04rfl/atividadeED/priv_atvd/filmes.txt", "r");
+    FILE *arq = fopen("filmes.txt", "r");
     if (!arq) {
         printf("Erro ao abrir o arquivo filmes.txt\n");
         return;
@@ -490,7 +484,6 @@ void carregarFilmesDoArquivo(tipoListaGenero *lg) {
                 strncpy(f.sinopse, sinopse, MAX_SINOPSE);
                 f.avaliacao = atoi(avaliacaoStr);
                 inserirFilmeNaLista(ng, f);
-                ng->dado.qntdFilmes++;
             }
         }
     }
@@ -498,7 +491,7 @@ void carregarFilmesDoArquivo(tipoListaGenero *lg) {
 }
 
 // ----------------------------------------------------
-// ------------------------mainha----------------------
+// ------------------------main----------------------
 // ----------------------------------------------------
 
 int main() {
@@ -511,7 +504,6 @@ int main() {
     tipoListaAssistidos listaAssistidos;
     inicializarListaAssistidos(&listaAssistidos);
 
-    // É MELHOR COMEÇAR INICIALIZANDO ANTES, OU SE A PESSOA QUISER PODE CARREGAR OS DADOS VAZIO E ESCOLHER SE QUER UMA BASE DE DADOS?
     carregarGenerosDoArquivo(&listaGeneros);
     carregarFilmesDoArquivo(&listaGeneros);
 
@@ -528,7 +520,7 @@ int main() {
         printf("4 - Exibir Filmes por Genero\n");
         printf("5 - Procurar Genero\n");
         printf("6 - Inserir Filme (Cadastrar Filme)\n");
-        printf("7 - Remover Filme\n");
+        printf("7 - Remover Filme de um Genero\n");
         printf("8 - Exibir Filme Especifico (por genero)\n");
         printf("9 - Procurar Filme Global (por nome)\n");
         printf("10 - Adicionar Filme Assistido\n");

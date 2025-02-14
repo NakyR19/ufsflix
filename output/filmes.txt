@@ -1,0 +1,79 @@
+Acao;Missao Impossivel;1996;110;Agente secreto em missao arriscada.;5
+Acao;Duro de Matar;1988;132;Policial luta contra terroristas.;5
+Acao;John Wick;2014;101;Ex-assassino em busca de vinganca.;5
+Acao;Velozes e Furiosos;2001;107;Corridas ilegais e acao intensa.;4
+Acao;Mad Max: Estrada da Furia;2015;120;Sobrevivencia em um deserto pos-apocaliptico.;5
+Acao;Gladiador;2000;155;General romano busca vinganca como gladiador.;5
+Acao;Matrix;1999;136;Homem descobre a verdade sobre sua realidade.;5
+Acao;Os Vingadores;2012;143;Herois se unem para salvar o mundo.;4
+Acao;Capitao America: O Soldado Invernal;2014;136;Conspiracao no governo americano.;5
+Acao;Batman: O Cavaleiro das Trevas;2008;152;Batman enfrenta o Coringa.;5
+Drama;Forrest Gump;1994;142;Homem simples testemunha eventos historicos.;5
+Drama;O Poderoso Chefao;1972;175;Familia mafiosa e suas intrigas.;5
+Drama;Clube da Luta;1999;139;Homem cria clube secreto de luta.;5
+Drama;A Espera de um Milagre;1999;189;Guarda prisional encontra preso especial.;5
+Drama;A Lista de Schindler;1993;195;Empresario salva judeus do Holocausto.;5
+Drama;Um Sonho de Liberdade;1994;142;Prisioneiro busca liberdade e redencao.;5
+Drama;O Curioso Caso de Benjamin Button;2008;166;Homem nasce velho e rejuvenesce.;4
+Drama;Cisne Negro;2010;108;Bailarina enfrenta sua obsessao pela perfeicao.;5
+Drama;O Menino do Pijama Listrado;2008;94;Amizade em meio a Segunda Guerra.;5
+Drama;12 Anos de Escravidao;2013;134;Homem negro livre e vendido como escravo.;5
+Drama;A vida e bela;1997;156;Homem esconde do seu filho a triste realidade em que vivem;5
+Comedia;Se Beber, Nao Case;2009;100;Despedida de solteiro da errado.;4
+Comedia;O Maskara;1994;101;Homem encontra mascara magica.;4
+Comedia;Superbad;2007;113;Adolescentes tentam comprar bebidas para festa.;4
+Comedia;Ace Ventura: Um Detetive Diferente;1994;86;Detetive excentrico resolve misterios de animais.;4
+Comedia;Click;2006;107;Homem encontra controle remoto magico.;4
+Comedia;As Branquelas;2004;109;Dois agentes se disfarcam de mulheres ricas.;4
+Comedia;Gente Grande;2010;102;Grupo de amigos se reune apos anos.;4
+Comedia;O Diabo Veste Prada;2006;109;Jovem trabalha para chefe exigente.;4
+Comedia;Todo Mundo em Panico;2000;88;Parodia de filmes de terror.;4
+Comedia;Doze e Demais;2003;98;Casal cria doze filhos.;4
+Terror;O Exorcista;1973;122;Garota possuida por entidade demoniaca.;5
+Terror;Invocacao do Mal;2013;112;Casal investiga casa mal-assombrada.;5
+Terror;It: A Coisa;2017;135;Criancas enfrentam palhaco demoniaco.;5
+Terror;Halloween;1978;91;Assassino mascarado aterroriza cidade.;5
+Terror;O Iluminado;1980;146;Homem enlouquece em hotel isolado.;5
+Terror;A Hora do Pesadelo;1984;91;Assassino ataca nos sonhos.;5
+Terror;Jogos Mortais;2004;103;Vitimas sao forcadas a resolver desafios mortais.;4
+Terror;Atividade Paranormal;2007;86;Eventos sobrenaturais filmados por camera caseira.;4
+Terror;Hereditario;2018;127;Familia lida com segredos macabros.;5
+Animacao;Toy Story;1995;81;Brinquedos ganham vida quando humanos não estão por perto.;5
+Animacao;Procurando Nemo;2003;100;Peixe-palhaço busca seu filho perdido.;5
+Animacao;Shrek;2001;90;Ogro embarca em uma aventura para salvar uma princesa.;5
+Animacao;O Rei Leão;1994;88;Leãozinho enfrenta seu destino como rei.;5
+Animacao;Os Incríveis;2004;115;Família de super-heróis luta contra vilão.;5
+Ficcao;Star Wars: Uma Nova Esperança;1977;121;Jovem se junta a rebeldes para salvar a galáxia.;5
+Ficcao;Blade Runner;1982;117;Caçador de androides persegue replicantes.;5
+Ficcao;Matrix;1999;136;Homem descobre a verdade sobre sua realidade.;5
+Ficcao;Interestelar;2014;169;Exploradores viajam através de um buraco de minhoca.;5
+Ficcao;A Origem;2010;148;Ladrão invade sonhos para roubar segredos.;5
+Romance;Titanic;1997;195;Amor proibido a bordo do navio Titanic.;5
+Romance;Orgulho e Preconceito;2005;129;Romance entre jovem independente e aristocrata.;5
+Romance;Diário de uma Paixão;2004;123;Casal enfrenta desafios para manter seu amor.;5
+Romance;Cidade dos Anjos;1998;114;Anjo se apaixona por uma mortal.;4
+Romance;Como Eu Era Antes de Você;2016;110;Jovem cuida de homem tetraplégico e se apaixona.;4
+Suspense;O Silêncio dos Inocentes;1991;118;Agente do FBI busca ajuda de assassino para capturar outro.;5
+Suspense;Seven: Os Sete Crimes Capitais;1995;127;Detetives caçam serial killer que usa pecados capitais.;5
+Suspense;Clube da Luta;1999;139;Homem cria clube secreto de luta.;5
+Suspense;A Ilha do Medo;2010;138;Detetive investiga desaparecimento em hospital psiquiátrico.;5
+Suspense;Garota Exemplar;2014;149;Homem se torna principal suspeito do desaparecimento de sua esposa.;5
+Animacao;Up: Altas Aventuras;2009;96;Idoso e garoto explorador em aventura aérea.;5
+Animacao;Divertida Mente;2015;95;Emoções de uma garota ganham vida.;5
+Animacao;Frozen: Uma Aventura Congelante;2013;102;Princesa com poderes de gelo enfrenta desafios.;5
+Animacao;Moana: Um Mar de Aventuras;2016;107;Jovem navega pelo oceano para salvar sua ilha.;5
+Animacao;Zootopia;2016;108;Coelha policial e raposa trapaceira resolvem mistério.;5
+Ficcao;O Exterminador do Futuro;1984;107;Ciborgue do futuro tenta matar mulher.;5
+Ficcao;Jurassic Park;1993;127;Parque de dinossauros se torna perigoso.;5
+Ficcao;Guardioes da Galaxia;2014;121;Grupo de desajustados protege a galáxia.;5
+Ficcao;Avatar;2009;162;Humano se infiltra em raça alienígena.;5
+Ficcao;Duna;2021;155;Jovem herdeiro luta por planeta desértico.;5
+Romance;Um Lugar Chamado Notting Hill;1999;124;Dono de livraria se apaixona por atriz famosa.;5
+Romance;Antes do Amanhecer;1995;101;Estranhos se conhecem e se apaixonam em uma noite.;5
+Romance;La La Land: Cantando Estações;2016;128;Músico e atriz buscam sucesso em Los Angeles.;5
+Suspense;Cisne Negro;2010;108;Bailarina enfrenta sua obsessão pela perfeição.;5
+Suspense;O Sexto Sentido;1999;107;Garoto vê pessoas mortas e busca ajuda de psicólogo.;5
+Suspense;Corra!;2017;104;Jovem negro descobre segredos perturbadores da família da namorada.;5
+Suspense;A Origem;2010;148;Ladrão invade sonhos para roubar segredos.;5
+Suspense;O Jogo da Imitação;2014;113;Matemático decifra códigos nazistas durante a Segunda Guerra.;5
+Terror;Midsommar;2019;147;Grupo de amigos visita festival estranho.;5
