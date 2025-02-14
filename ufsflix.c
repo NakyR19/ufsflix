@@ -115,8 +115,6 @@ int inserirGenero(tipoListaGenero *lista, Genero dado) {
         return 0; // Retorna 0 para indicar que a inserção não foi realizada
     }
 
-
-
     tipoNoGenero *novoNo = (tipoNoGenero*) malloc(sizeof(tipoNoGenero));
     if (!novoNo) return 0;
     novoNo->dado = dado;
@@ -214,7 +212,6 @@ int removerGenero(tipoListaGenero *lista, char *nomeGenero) {
 
 
 // precisa comentar?
-//exibe os de gÊneros da lista
 void exibirGeneros(tipoListaGenero *lista) {
     tipoNoGenero *atual = lista->inicio;
     if (atual == NULL) {
@@ -235,7 +232,6 @@ void exibirGeneros(tipoListaGenero *lista) {
 // -------------------------------------------
 
 // precisa mesmo comentar?
-//PRECISA! inicializa a lista de filmes.
 void inicializarListaFilme(tipoListaFilme *lista) {
     lista->fim = NULL;
     lista->quant = 0;
